@@ -1,0 +1,18 @@
+[Unit]
+Description=Dishwasher Home Connect API
+After=network.target
+
+[Service]
+User=youruser
+WorkingDirectory=/home/youruser/dishwasher
+ExecStart=/home/youruser/dishwasher/venv/bin/gunicorn \
+    --bind 0.0.0.0:5001 \
+    --workers 1 \
+    --access-logfile - \
+    app:app
+EnvironmentFile=/home/youruser/dishwasher/.env
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
